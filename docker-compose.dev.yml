@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  server:
+    container_name: project-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
+    networks:
+      - project-dev-network
+
+networks:
+  project-dev-network:
+    external: true

@@ -1,0 +1,42 @@
+# Step 1: Build the source code
+FROM node:18-alpine AS build
+
+WORKDIR /app
+
+# Copy package and lock files for dependency installation
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f package-lock.json ]; then npm ci --production --silent --ignore-scripts; \
+  elif [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
+  else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
+  fi
+
+# Copy application source code
+COPY . ./
+
+# Build the application
+RUN \
+  if [ -f package-lock.json ]; then npm run build; \
+  elif [ -f yarn.lock ]; then yarn build; \
+  elif [ -f pnpm-lock.yaml ]; then pnpm build; \
+  else yarn build; \
+  fi
+
+# Step 2: Use keymetrics/pm2:latest-alpine as the runner image
+FROM build AS runtime
+
+WORKDIR /app
+
+# Install PM2 globally
+RUN npm install pm2 -g --silent
+
+# Salin file konfigurasi aplikasi dan file build dari stage pertama
+COPY ecosystem.config.js .
+COPY --from=build /app/dist ./dist
+
+# Expose the desired port
+EXPOSE 3000
+
+# Start your Node.js app with PM2
+CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]

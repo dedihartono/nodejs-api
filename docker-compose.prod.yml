@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  server:
+    container_name: project-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
+    networks:
+      - project-prod-network
+
+networks:
+  project-prod-network:
+    external: true
