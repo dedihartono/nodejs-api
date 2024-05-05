@@ -1,0 +1,17 @@
+{
+  "success": {
+    "read": "Mengambil data berhasil",
+    "save": "Menyimpan data berhasil",
+    "update": "Memperbarui data berhasil",
+    "delete": "Menghapus data berhasil"
+  },
+  "failed": {
+    "save": "Gagal menyimpan data",
+    "update": "Gagal memperbarui data",
+    "delete": "Gagal menghapus data",
+    "server": "Ups, Kesalahan server internal",
+    "input": "Ups, Input tidak valid",
+    "not_found": "Ups, Data tidak ditemukan",
+    "unauthorized": "Ups, Tindakan ini tidak diizinkan"
+  }
+}

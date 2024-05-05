@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: API Documentation
+  description: API for managing resources
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /api/v1/users:
+    get:
+      summary: Get all users
+      description: Retrieves a list of all users.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Create a new user
+      description: Creates a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/v1/users/{id}:
+    get:
+      summary: Get user by ID
+      description: Retrieves a user by ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the user to retrieve.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Update user
+      description: Updates a user by ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the user to update.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      summary: Delete user
+      description: Deletes a user by ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the user to delete.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User deleted successfully
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        is_active:
+          type: boolean
+        email_verified_at:
+          type: string
+        remember_token:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        deleted_at:
+          type: string
+        created_by:
+          type: string
+        updated_by:
+          type: string
+        deleted_by:
+          type: string
+      required:
+        - username
+        - name
+        - email
+        - password
+    UserInput:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - name
+        - email
+        - password
+    
