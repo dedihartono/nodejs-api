@@ -1,0 +1,17 @@
+{
+  "success": {
+    "read": "Fetch data successfully",
+    "save": "Save data successfully",
+    "update": "Update data successfully",
+    "delete": "Delete data successfully"
+  },
+  "failed": {
+    "save": "Save data failed",
+    "update": "Update data failed",
+    "delete": "Delete data failed",
+    "server": "Opps, Internal server error",
+    "input": "Opps, Invalid input",
+    "not_found": "Opps, Data not found",
+    "unauthorized": "Opps, This action is unauthorized"
+  }
+}
