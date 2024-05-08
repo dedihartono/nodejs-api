@@ -3,7 +3,34 @@ import { UserRepository } from '../interfaces/respositories';
 
 export class SequelizeUserRepository implements UserRepository {
   async getAllUsers(): Promise<User[]> {
-    return await User.findAll({});
+    return await User.findAll({
+      attributes: {
+        exclude: [
+          'password',
+          'remember_token',
+          'created_by',
+          'updated_by',
+          'deleted_by',
+        ],
+      },
+      include: [
+        {
+          model: User,
+          as: 'creator',
+          attributes: ['id', 'username', 'name', 'email'],
+        },
+        {
+          model: User,
+          as: 'modifier',
+          attributes: ['id', 'username', 'name', 'email'],
+        },
+        {
+          model: User,
+          as: 'remover',
+          attributes: ['id', 'username', 'name', 'email'],
+        },
+      ],
+    });
   }
 
   async createUser(userData: Partial<User>): Promise<User> {
