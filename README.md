@@ -1,3 +1,5 @@
+[![Build Status](https://app.travis-ci.com/dedihartono/nodejs-api.svg?token=s7hU2xDjMW6hcGzAyGYq&branch=main)](https://app.travis-ci.com/dedihartono/nodejs-api)
+
 # Development (Local Dev)
 
 - `npm install`
