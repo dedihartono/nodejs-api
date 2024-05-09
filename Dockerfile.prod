@@ -31,12 +31,16 @@ WORKDIR /app
 # Install PM2 globally
 RUN npm install pm2 -g --silent
 
-# Salin file konfigurasi aplikasi dan file build dari stage pertama
+# Copy .env-example and rename it to .env
+COPY .env-example .env
+
+# Copy application configuration file and build files from the first stage
 COPY ecosystem.config.js .
 COPY --from=build /app/dist ./dist
+COPY public ./public
 
-# Expose the desired port
-EXPOSE 3000
+# Expose the desired port, make sure it's same like your env port
+EXPOSE 5000
 
 # Start your Node.js app with PM2
 CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]
